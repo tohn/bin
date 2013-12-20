@@ -1,0 +1,4 @@
+bin
+===
+
+Some shell scripts
