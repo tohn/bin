@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [[ $# > 0 ]] ; then
+if [[ "$#" -gt 0 ]] ; then
 	ACTION="load"
 else
-	ACTION=`printf "playlist\nstart\nexit\nopen\nload\nshuffle\nrepeat\n" | dmenu -i $*`
+	ACTION=$(printf "playlist\nstart\nexit\nopen\nload\nshuffle\nrepeat\n" | dmenu -i "$@")
 fi
 root="$HOME/music/pls"
 
@@ -25,8 +25,8 @@ if [ "$ACTION" == 'open' ]; then
 fi
 
 if [ "$ACTION" == 'load' ]; then
-	mocp -c && play=$(ls $root | sed 's/\.m3u//' | dmenu -i $*)
-	if [[ -n $play ]] ; then
+	mocp -c && play=$(ls "$root" | sed 's/\.m3u//' | dmenu -i "$@")
+	if [[ -n "$play" ]] ; then
 		mocp -a "$root/${play}.m3u"
 		mocp -p
 	fi

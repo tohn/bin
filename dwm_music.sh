@@ -1,43 +1,64 @@
 #!/bin/bash
 
 function naechstes() {
-	if cmus-remote -Q | grep status 2>&1 >/dev/null ; then
+	if ps aux | grep -e mpd -e mopidy | grep -v grep >/dev/null 2>&1 ; then
+		mpc next
+		return
+	fi
+
+	if cmus-remote -Q | grep status >/dev/null 2>&1 ; then
 		cmus-remote -n
+		return
 	fi
 
-	if ps aux | grep mocp | grep -v grep 2>&1 >/dev/null ; then
+	if psgrep mocp | grep -v grep >/dev/null 2>&1 ; then
 		mocp -f
+		return
 	fi
 
-	#if ps aux | grep shell-fm | grep -v grep 2>&1 >/dev/null ; then
+	#if ps aux | grep shell-fm | grep -v grep >/dev/null 2>&1 ; then
 	#	shellfm="$(echo info '%a: %t (%l) - %R' | nc localhost 54311) | "
 	#fi
 }
 
 function pause() {
-	if cmus-remote -Q | grep status 2>&1 >/dev/null ; then
+	if ps aux | grep -e mpd -e mopidy | grep -v grep >/dev/null 2>&1 ; then
+		mpc toggle
+		return
+	fi
+
+	if cmus-remote -Q | grep status >/dev/null 2>&1 ; then
 		cmus-remote -u
+		return
 	fi
 
-	if ps aux | grep mocp | grep -v grep 2>&1 >/dev/null ; then
+	if psgrep mocp | grep -v grep >/dev/null 2>&1 ; then
 		mocp -G
+		return
 	fi
 
-	#if ps aux | grep shell-fm | grep -v grep 2>&1 >/dev/null ; then
+	#if ps aux | grep shell-fm | grep -v grep >/dev/null 2>&1 ; then
 	#	shellfm="$(echo info '%a: %t (%l) - %R' | nc localhost 54311) | "
 	#fi
 }
 
 function vorheriges() {
-	if cmus-remote -Q | grep status 2>&1 >/dev/null ; then
+	if ps aux | grep -e mpd -e mopidy | grep -v grep >/dev/null 2>&1 ; then
+		mpc prev
+		return
+	fi
+
+	if cmus-remote -Q | grep status >/dev/null 2>&1 ; then
 		cmus-remote -r
+		return
 	fi
 
-	if ps aux | grep mocp | grep -v grep 2>&1 >/dev/null ; then
+	if psgrep mocp | grep -v grep >/dev/null 2>&1 ; then
 		mocp -r
+		return
 	fi
 
-	#if ps aux | grep shell-fm | grep -v grep 2>&1 >/dev/null ; then
+	#if ps aux | grep shell-fm | grep -v grep >/dev/null 2>&1 ; then
 	#	shellfm="$(echo info '%a: %t (%l) - %R' | nc localhost 54311) | "
 	#fi
 }
